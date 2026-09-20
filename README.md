@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/31760901/README.md)
+[README.md](https://github.com/user-attachments/files/32444869/README.md)
 <div align="center">
 
 # 🛒 Sales & Customer Dashboards (Dynamic)
@@ -11,6 +11,10 @@
 
 </div>
 
+<br/>
+
+> *"How did we do this year — and exactly where did that growth (or loss) come from?"* One Year parameter, 178 calculated fields, and every KPI on both dashboards answers that question at once.
+
 ---
 
 ## 📑 Table of Contents
@@ -18,11 +22,15 @@
 - [Overview](#-overview)
 - [Dashboard Preview](#️-dashboard-preview)
 - [Dataset](#️-dataset)
+- [How It's Wired Together](#-how-its-wired-together)
 - [Dashboards](#-dashboards)
 - [Dynamic Year Parameter & YoY Logic](#-dynamic-year-parameter--yoy-logic)
 - [Data Model](#️-data-model)
 - [Key Insights](#-key-insights)
+- [Business Questions Answered](#-business-questions-answered)
+- [Skills Demonstrated](#-skills-demonstrated)
 - [Tools & Techniques](#️-tools--techniques)
+- [Possible Extensions](#-possible-extensions)
 - [Project Structure](#-project-structure)
 - [How to Use](#-how-to-use)
 - [Contact Me](#-contact-me)
@@ -53,23 +61,25 @@ Rather than static totals, the workbook is built around **178 calculated fields*
 
 </div>
 
-**Sales Dashboard, 2023 vs. 2022:**
+<br/>
 
-| Metric | 2023 Value | YoY Change |
-|---|---|---|
-| Total Sales | **$733K** | ▲ 20.4% |
-| Total Profit | **$93K** | ▲ 12.5% |
-| Total Quantity | **12K units** | ▲ 26.8% |
+<div align="center">
 
-**Customer Dashboard, 2023 vs. 2022:**
+| Total Sales | Total Profit | Total Quantity | Total Customers | Total Orders |
+|:---:|:---:|:---:|:---:|:---:|
+| **$733K** ▲20.4% | **$93K** ▲12.5% | **12K units** ▲26.8% | **693** ▲8.6% | **1,687** ▲28.3% |
 
-| Metric | 2023 Value | YoY Change |
-|---|---|---|
-| Total Customers | **693** | ▲ 8.6% |
-| Total Sales per Customer | **$1,058** | ▲ 10.8% |
-| Total Orders | **1,687** | ▲ 28.3% |
+*(2023 vs. 2022, as read directly off the dashboards)*
+
+</div>
+
+<details>
+<summary><b>📋 What else is on each dashboard — click to expand</b></summary>
+<br/>
 
 Each KPI card carries its own **Jan–Dec sparkline** with the highest and lowest month of the year auto-flagged. The `Top 10 Customers by Profit` table shows **Raymond Buch** in the #1 spot with $6,781 profit from just 3 orders, and the `Customer Distribution by Nr. of Orders` histogram shows most customers (roughly 400 of 693) ordered only once or twice in 2023 — while just 2 customers placed 8 orders.
+
+</details>
 
 ---
 
@@ -90,6 +100,23 @@ Built on the well-known **Sample Superstore** dataset, split into four relationa
 - 🧾 **5,009** distinct orders from **793** customers
 - 🌍 Covers all of the **United States** — 4 regions (Central, East, South, West), 49 states, 531 cities
 - 🏷️ **3** product categories (Furniture, Office Supplies, Technology) across **17** sub-categories and 1,862 unique products
+
+---
+
+## 🔗 How It's Wired Together
+
+```mermaid
+flowchart LR
+    O["📄 Orders.csv\n9,994 rows"] --> P["🎛️ Year Parameter\nCY / PY split"]
+    C["📄 Customers.csv"] --> P
+    L["📄 Location.csv"] --> P
+    R["📄 Products.csv"] --> P
+    P --> S["💰 Sales Dashboard\nSales · Profit · Quantity"]
+    P --> U["👥 Customer Dashboard\nCustomers · Orders · Sales/Customer"]
+    S -.same nav bar.-> U
+```
+
+Every chart on both dashboards ultimately traces back to the same Year parameter — change it once, and Current Year / Prior Year recalculates everywhere downstream.
 
 ---
 
@@ -156,6 +183,27 @@ Location.csv ───(Postal Code)──┘
 
 ---
 
+## ❓ Business Questions Answered
+
+- How did Sales, Profit, and Quantity perform this year compared to last — and in which month did each one peak or dip?
+- Are we growing because we have more customers, or because existing customers are ordering more often?
+- Which product sub-categories are actually profitable this year, versus which ones just look busy?
+- How loyal is the customer base — how many customers are one-time buyers vs. repeat purchasers?
+- Who are the highest-value customers this year, and when did they last order?
+
+---
+
+## 🧠 Skills Demonstrated
+
+- **Parameter-driven design** — a single control cascading through 178 calculated fields across two dashboards
+- **Time-intelligence calculations** — Current Year / Prior Year splits and YoY growth ratios built natively in Tableau
+- **LOD expressions** — `{FIXED ...}` for calculations independent of view-level granularity
+- **Table calculations** — `WINDOW_MAX`, `WINDOW_MIN`, `WINDOW_AVG` for fully automatic peak, trough, and above/below-average highlighting
+- **Relational data modeling** — joining four CSVs into one denormalized retail model
+- **Dashboard UX** — a shared navigation pattern and consistent KPI-strip layout across both pages
+
+---
+
 ## 🛠️ Tools & Techniques
 
 - **Tableau Desktop** — dashboard design, actions, and packaged workbook (`.twbx`) publishing
@@ -164,6 +212,15 @@ Location.csv ───(Postal Code)──┘
 - **LOD Expressions** — `{FIXED ...}` for calculations independent of view-level granularity
 - **Table Calculations** — `WINDOW_MAX`, `WINDOW_AVG` for automatic peak and above/below-average highlighting
 - **Dashboard Actions & Navigation** — button-based navigation between the Sales and Customer dashboards with active/inactive icon states
+
+---
+
+## 🔮 Possible Extensions
+
+- Add a **Region/State filter** synced across both dashboards for geographic drill-down
+- Extend the Year parameter into a **rolling 12-month view** instead of fixed calendar years
+- Add a **cohort-based repeat-purchase analysis** building on the existing `Customer Distribution` histogram
+- Publish to **Tableau Server/Cloud** with a scheduled data refresh instead of a static extract
 
 ---
 
@@ -202,4 +259,4 @@ Sales-Customer-Dashboards/
 [![Portfolio](https://img.shields.io/badge/Portfolio-4B5563?style=for-the-badge)](https://gamma.app/docs/Copy-of-Brand-Partnership-Proposal-lrp9yrhau9gdpj1)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eng-omarsalem)
 
-
+</div>
