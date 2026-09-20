@@ -202,12 +202,4 @@ Sales-Customer-Dashboards/
 [![Portfolio](https://img.shields.io/badge/Portfolio-4B5563?style=for-the-badge)](https://gamma.app/docs/Copy-of-Brand-Partnership-Proposal-lrp9yrhau9gdpj1)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eng-omarsalem)
 
-</div>
 
----
-
-<div align="center">
-
-Made with 🛒 and Tableau
-
-</div>
